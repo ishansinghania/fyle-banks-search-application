@@ -17,15 +17,14 @@ export interface RequestDataType {
 	withCredentials?: boolean;
 }
 
-@Injectable()
-export abstract class APIService {
+@Injectable({
+	providedIn: 'root',
+})
+export class APIService {
 	constructor(protected httpClient: HttpClient) {}
 
 	private getResourcePath(path: string, id?: number): string {
-		if (path && path.length > 0 && path[path.length - 1] !== '/')
-			path += '/';
-
-		return id ? `${path}${id}/` : path;
+		return id ? `${path}/${id}` : path;
 	}
 
 	public getRequestHeader(headerObj: StringMap = {}): StringMap {
