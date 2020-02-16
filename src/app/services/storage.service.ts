@@ -15,11 +15,11 @@ export class StorageService {
 	*/
 
 	constructor() {
-		localStorage.setItem(this.keyName, JSON.stringify({}));
+		// localStorage.setItem(this.keyName, JSON.stringify({}));
 	}
 
 	private getStorageItems() {
-		return JSON.parse(localStorage.getItem(this.keyName));
+		return JSON.parse(localStorage.getItem(this.keyName)) || {};
 	}
 
 	private setStorageItems(items: any) {

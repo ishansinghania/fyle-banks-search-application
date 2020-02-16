@@ -1,6 +1,8 @@
 import * as _ from 'lodash';
 import { Component, OnInit } from '@angular/core';
+
 import { BankService } from './../services/bank.service';
+import { StorageService } from './../services/storage.service';
 import { Bank } from '../model/bank';
 
 @Component({
@@ -35,7 +37,10 @@ export class BankDashBoardComponent implements OnInit {
 		},
 	];
 
-	constructor(private _bankService: BankService) {}
+	constructor(
+		private _bankService: BankService,
+		private _storageService: StorageService,
+	) {}
 
 	ngOnInit() {
 		this.getBanks();
@@ -50,5 +55,20 @@ export class BankDashBoardComponent implements OnInit {
 
 	changeSelectedCity(event: any) {
 		this.getBanks();
+	}
+
+	// To set or unset the favourite banks
+
+	toggleSelction(event: any, key: string, value: Bank) {
+		event
+			? this._storageService.setLocalItem(key, value)
+			: this._storageService.removeLocalItem(key);
+	}
+
+	// To check if the bank is favourite or not
+
+	isFavorite(key: string): boolean {
+		const favouriteBank = this._storageService.getLocalItem(key);
+		return !!favouriteBank;
 	}
 }

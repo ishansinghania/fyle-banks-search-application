@@ -5,26 +5,41 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
-import {MatInputModule} from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 import { AppRoutingModule, routedComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { ApiPrefixInterceptor, StorageService, BankService, APIService } from './services';
+import {
+	ApiPrefixInterceptor,
+	StorageService,
+	BankService,
+	APIService,
+} from './services';
 import { BankSearchPipe } from './utils/bank-search.pipe';
+import { FavouriteButtonComponent } from './bank/favourite-button/favourite-button.component';
 
 const MATERIAL_COMPONENTS = [
 	MatToolbarModule,
 	MatFormFieldModule,
 	MatSelectModule,
 	MatInputModule,
+	MatIconModule,
+	MatButtonModule,
 ];
 
 @NgModule({
-	declarations: [AppComponent, ...routedComponents, BankSearchPipe],
+	declarations: [
+		AppComponent,
+		...routedComponents,
+		BankSearchPipe,
+		FavouriteButtonComponent,
+	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
