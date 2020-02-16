@@ -60,31 +60,17 @@ export class StorageService {
 		Methods to cache the http response inside a map;
 	*/
 
-	get(pk: MapKeyType): any {
-		return this._objectMap[pk];
+	get(city: string): any {
+		return this._objectMap[city];
 	}
 
 	getAll(): any[] {
-		return _.values(this._objectMap);
+		return this._objectMap;
 	}
 
-	getOrCreate(id: MapKeyType): any {
-		const obj = this.get(id);
-		if (!obj) {
-			this._objectMap[id] = obj;
-		}
-		return obj;
-	}
-
-	put(item: any, pk: MapKeyType) {
-		const cached = this._objectMap[pk];
-		if (!cached) this._objectMap[pk] = item;
-	}
-
-	putAll(items: any[], pk: MapKeyType) {
-		_.forEach(items, (item) => {
-			this.put(item, item[pk]);
-		});
+	putAll(items: any[], city: string) {
+		if (this.get(city)) delete this._objectMap[city];
+		this._objectMap[city] = items;
 	}
 
 	clear() {
