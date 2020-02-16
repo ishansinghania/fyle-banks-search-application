@@ -6,7 +6,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { ApiPrefixInterceptor } from './services';
+import { ApiPrefixInterceptor, StorageService } from './services';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -17,6 +17,7 @@ import { ApiPrefixInterceptor } from './services';
 			useClass: ApiPrefixInterceptor,
 			multi: true,
 		},
+		StorageService,
 	],
 	bootstrap: [AppComponent],
 })
