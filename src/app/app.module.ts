@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { AppRoutingModule, routedComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import {
 } from './services';
 import { BankSearchPipe } from './utils/bank-search.pipe';
 import { FavouriteButtonComponent } from './bank/favourite-button/favourite-button.component';
+import { FavouriteBankListComponent } from './bank/favourite-bank-list/favourite-bank-list.component';
 
 const MATERIAL_COMPONENTS = [
 	MatToolbarModule,
@@ -31,6 +33,7 @@ const MATERIAL_COMPONENTS = [
 	MatInputModule,
 	MatIconModule,
 	MatButtonModule,
+	MatTabsModule,
 ];
 
 @NgModule({
@@ -39,6 +42,7 @@ const MATERIAL_COMPONENTS = [
 		...routedComponents,
 		BankSearchPipe,
 		FavouriteButtonComponent,
+		FavouriteBankListComponent,
 	],
 	imports: [
 		BrowserModule,

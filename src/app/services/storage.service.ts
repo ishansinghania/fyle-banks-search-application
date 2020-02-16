@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 export type MapKeyType = string | number;
 
@@ -8,15 +9,16 @@ export class StorageService {
 	private _objectMap: any = {};
 	private keyName = 'favourite_banks';
 
+	// To detect changes, like addition or removal, in favourite bank list
+	localStorageBanks = new Subject();
+
 	/*
 		will store all the favourite bank in a single key value pair.
 		the key is favourite_banks and the value will be an empty object initially.
 		all the get and set will be done from inside the empty object.
 	*/
 
-	constructor() {
-		// localStorage.setItem(this.keyName, JSON.stringify({}));
-	}
+	constructor() {}
 
 	private getStorageItems() {
 		return JSON.parse(localStorage.getItem(this.keyName)) || {};
@@ -24,6 +26,7 @@ export class StorageService {
 
 	private setStorageItems(items: any) {
 		localStorage.setItem(this.keyName, JSON.stringify(items));
+		this.localStorageBanks.next(this.getStorageItems());
 	}
 
 	getLocalItem(key: MapKeyType) {
@@ -53,6 +56,7 @@ export class StorageService {
 
 	clearAllLocal() {
 		localStorage.clear();
+		this.localStorageBanks.next(this.getStorageItems());
 	}
 
 	/*
@@ -80,5 +84,6 @@ export class StorageService {
 	reset() {
 		this._objectMap = {};
 		localStorage.clear();
+		this.localStorageBanks.next(this.getStorageItems());
 	}
 }
