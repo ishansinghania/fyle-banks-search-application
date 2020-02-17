@@ -8,12 +8,14 @@ import { Bank } from '../model/bank';
 @Component({
 	selector: 'bank-dashboard',
 	templateUrl: './bank-dashboard.component.html',
-	styleUrls: ['./bank-dashboard.component.scss'],
 })
 export class BankDashBoardComponent implements OnInit {
 	selectedCity: string = 'MUMBAI';
 	searchText: string;
 	bankList: Bank[];
+	filteredBankList: Bank[];
+	displayList: Bank[];
+
 	cityList = [
 		{
 			name: 'Mumbai',
@@ -57,18 +59,7 @@ export class BankDashBoardComponent implements OnInit {
 		this.getBanks();
 	}
 
-	// To set or unset the favourite banks
-
-	toggleSelction(event: any, key: string, value: Bank) {
-		event
-			? this._storageService.setLocalItem(key, value)
-			: this._storageService.removeLocalItem(key);
-	}
-
-	// To check if the bank is favourite or not
-
-	isFavorite(key: string): boolean {
-		const favouriteBank = this._storageService.getLocalItem(key);
-		return !!favouriteBank;
+	pageChange(paginatedList: Bank[]) {
+		this.displayList = [...paginatedList];
 	}
 }

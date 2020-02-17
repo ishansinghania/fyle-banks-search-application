@@ -1,0 +1,18 @@
+:host {
+	.page-item {
+		border-right: 1px solid #dee2e6;
+		padding: 0.5rem 0.75rem;
+		cursor: pointer;
+		&:hover {
+			color: #1579f6;
+		}
+	}
+	.active {
+		background-color: #1579f6;
+		color: white !important;
+	}
+	.text-diabled {
+		color: grey;
+		cursor: auto !important;
+	}
+}

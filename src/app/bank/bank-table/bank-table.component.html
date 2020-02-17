@@ -1,0 +1,40 @@
+<div class="mx-3">
+	<table class="table table-striped">
+		<thead class="thead-dark mat-elevation-z3">
+			<tr>
+				<th>IFSC</th>
+				<th>Name</th>
+				<th>Branch</th>
+				<th>Bank Id</th>
+				<th class="w-25">Address</th>
+				<th>District</th>
+				<th>State</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let bank of banksList">
+				<td>
+					<span>{{ bank?.ifsc }}</span>
+					<favourite-button
+						(selectionChange)="
+							toggleSelction($event, bank.ifsc, bank)
+						"
+						[selected]="isFavorite(bank.ifsc)"
+					>
+					</favourite-button>
+				</td>
+				<td>{{ bank?.bank_name }}</td>
+				<td>{{ bank?.branch }}</td>
+				<td>{{ bank?.bank_id }}</td>
+				<td>{{ bank?.address }}</td>
+				<td>{{ bank?.district }}</td>
+				<td>{{ bank?.state }}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<paginator
+	[items]="banks"
+	(changePage)="pageChange($event)"
+	*ngIf="banks && banks.length"
+></paginator>
