@@ -11,6 +11,7 @@ import { Bank } from '../../model/bank';
 @Component({
 	selector: 'bank-table',
 	templateUrl: './bank-table.component.html',
+	styleUrls: ['./bank-table.component.scss'],
 })
 export class BankTableComponent implements OnChanges, AfterViewChecked {
 	@Input() banks: Bank[];
