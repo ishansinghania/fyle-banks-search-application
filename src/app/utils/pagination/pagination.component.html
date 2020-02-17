@@ -1,0 +1,44 @@
+<div class="d-flex" *ngIf="pager.pages && pager.pages.length">
+	<ul class="pagination border mb-0">
+		<li
+			class="page-item"
+			[ngClass]="{ 'text-diabled': pager.currentPage === 1 }"
+			(click)="setPage(1)"
+		>
+			<a><<</a>
+		</li>
+		<li
+			class="page-item"
+			[ngClass]="{ 'text-diabled': pager.currentPage === 1 }"
+			(click)="setPage(pager.currentPage - 1)"
+		>
+			<a><</a>
+		</li>
+		<li
+			class="page-item"
+			*ngFor="let page of pager.pages"
+			[ngClass]="{ active: pager.currentPage === page }"
+			(click)="setPage(page)"
+		>
+			<a>{{ page }}</a>
+		</li>
+		<li
+			class="page-item"
+			[ngClass]="{
+				'text-diabled': pager.currentPage === pager.totalPages
+			}"
+			(click)="setPage(pager.currentPage + 1)"
+		>
+			<a>></a>
+		</li>
+		<li
+			class="page-item border-right-0"
+			[ngClass]="{
+				'text-diabled': pager.currentPage === pager.totalPages
+			}"
+			(click)="setPage(pager.totalPages)"
+		>
+			<a>>></a>
+		</li>
+	</ul>
+</div>
