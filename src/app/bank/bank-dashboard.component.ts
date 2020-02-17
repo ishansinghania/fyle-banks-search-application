@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { BankService } from './../services/bank.service';
 import { StorageService } from './../services/storage.service';
 import { Bank } from '../model/bank';
+import { LoaderService } from '../utils/loader';
 
 @Component({
 	selector: 'bank-dashboard',
@@ -42,6 +43,7 @@ export class BankDashBoardComponent implements OnInit {
 	constructor(
 		private _bankService: BankService,
 		private _storageService: StorageService,
+		private _loader: LoaderService,
 	) {}
 
 	ngOnInit() {
@@ -49,10 +51,18 @@ export class BankDashBoardComponent implements OnInit {
 	}
 
 	getBanks() {
-		this._bankService.getAllBank(this.selectedCity).subscribe(response => {
-			if (response.body && response.body.length)
-				this.bankList = response.body as Bank[];
-		});
+		this._loader.show();
+		this._bankService.getAllBank(this.selectedCity).subscribe(
+			response => {
+				if (response.body && response.body.length) {
+					this.bankList = response.body as Bank[];
+					this._loader.hideAll();
+				}
+			},
+			err => {
+				this._loader.hideAll();
+			},
+		);
 	}
 
 	changeSelectedCity(event: any) {
