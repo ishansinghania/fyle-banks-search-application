@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 export type MapKeyType = string | number;
 
@@ -7,7 +8,9 @@ export type MapKeyType = string | number;
 export class StorageService {
 	private _objectMap: any = {};
 	private keyName = 'favourite_banks';
-	localStorage = window.localStorage;
+
+	// To detect changes, like addition or removal, in favourite bank list
+	localStorageBanks = new Subject();
 
 	/*
 		will store all the favourite bank in a single key value pair.
@@ -15,16 +18,15 @@ export class StorageService {
 		all the get and set will be done from inside the empty object.
 	*/
 
-	constructor() {
-		this.localStorage.setItem(this.keyName, JSON.stringify({}));
-	}
+	constructor() {}
 
 	private getStorageItems() {
-		return JSON.parse(this.localStorage.getItem(this.keyName));
+		return JSON.parse(localStorage.getItem(this.keyName)) || {};
 	}
 
 	private setStorageItems(items: any) {
-		this.localStorage.setItem(this.keyName, JSON.stringify(items));
+		localStorage.setItem(this.keyName, JSON.stringify(items));
+		this.localStorageBanks.next(this.getStorageItems());
 	}
 
 	getLocalItem(key: MapKeyType) {
@@ -53,23 +55,24 @@ export class StorageService {
 	}
 
 	clearAllLocal() {
-		this.localStorage.clear();
+		localStorage.clear();
+		this.localStorageBanks.next(this.getStorageItems());
 	}
 
 	/*
 		Methods to cache the http response inside a map;
 	*/
 
-	get(city: string): any {
+	getAll(city: string): any {
 		return this._objectMap[city];
 	}
 
-	getAll(): any[] {
-		return this._objectMap;
+	getOne(pk: MapKeyType, city: string) {
+		return this._objectMap[city][pk];
 	}
 
 	putAll(items: any[], city: string) {
-		if (this.get(city)) delete this._objectMap[city];
+		if (this.getAll(city)) delete this._objectMap[city];
 		this._objectMap[city] = items;
 	}
 
@@ -80,6 +83,7 @@ export class StorageService {
 	// to reset the entire store, i.e. remove all cache and localStorage
 	reset() {
 		this._objectMap = {};
-		this.localStorage.clear();
+		localStorage.clear();
+		this.localStorageBanks.next(this.getStorageItems());
 	}
 }

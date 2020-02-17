@@ -1,5 +1,7 @@
+import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
+
 import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -16,8 +18,15 @@ export class BankService {
 	) {}
 
 	getAllBank(city: string = 'MUMBAI') {
-		const banks = this._storageService.get(city);
-		if (banks) return of(banks);
+		const banks = this._storageService.getAll(city);
+		if (banks) {
+			const response: {
+				body: Bank[];
+			} = {
+				body: banks,
+			};
+			return of(response);
+		}
 
 		return this._apiService
 			.get(Bank.route, { params: { city: city } })

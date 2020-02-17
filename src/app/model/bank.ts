@@ -8,5 +8,5 @@ export class Bank {
 	state: string;
 	bank_name: string;
 
-	static route: '/banks';
+	static route = '/banks';
 }
