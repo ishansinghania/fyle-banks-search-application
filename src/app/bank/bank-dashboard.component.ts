@@ -2,7 +2,6 @@ import * as _ from 'lodash';
 import { Component, OnInit } from '@angular/core';
 
 import { BankService } from './../services/bank.service';
-import { StorageService } from './../services/storage.service';
 import { Bank } from '../model/bank';
 import { LoaderService } from '../utils/loader';
 
@@ -42,7 +41,6 @@ export class BankDashBoardComponent implements OnInit {
 
 	constructor(
 		private _bankService: BankService,
-		private _storageService: StorageService,
 		private _loader: LoaderService,
 	) {}
 

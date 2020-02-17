@@ -3,8 +3,6 @@ import {
 	Input,
 	ChangeDetectorRef,
 	AfterViewChecked,
-	OnInit,
-	SimpleChanges,
 	OnChanges,
 } from '@angular/core';
 import { StorageService } from './../../services';
@@ -17,6 +15,9 @@ import { Bank } from '../../model/bank';
 export class BankTableComponent implements OnChanges, AfterViewChecked {
 	@Input() banks: Bank[];
 	banksList: Bank[];
+
+	sizeList = [5, 10, 15, 20, 25, 30];
+	selectedPageSize = 10;
 
 	constructor(
 		private _storageService: StorageService,
