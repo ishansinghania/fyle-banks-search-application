@@ -28,6 +28,7 @@ import { FavouriteButtonComponent } from './bank/favourite-button/favourite-butt
 import { FavouriteBankListComponent } from './bank/favourite-bank-list/favourite-bank-list.component';
 import { PaginationComponent } from './utils/pagination/pagination.component';
 import { BankTableComponent } from './bank/bank-table/bank-table.component';
+import { LoaderModule } from './utils/loader';
 
 const MATERIAL_COMPONENTS = [
 	MatToolbarModule,
@@ -56,14 +57,11 @@ const COMPONENTS = [
 		FormsModule,
 		ReactiveFormsModule,
 		CommonModule,
+		LoaderModule,
 
 		...MATERIAL_COMPONENTS,
 	],
-	declarations: [
-		AppComponent,
-		...routedComponents,
-		...COMPONENTS,
-	],
+	declarations: [AppComponent, ...routedComponents, ...COMPONENTS],
 	providers: [
 		{
 			provide: HTTP_INTERCEPTORS,
